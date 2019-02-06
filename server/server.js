@@ -13,6 +13,26 @@ app.use(express.static(publicPath));//middleware conf.
 io.on('connection', (socket)=>{
 console.log('new user connected');
 
+socket.emit('newEmail',{
+from:'firma@primer.com',
+text: 'seminar sutra',
+createdAt: 123
+});
+
+socket.emit('newMessage',{
+from:'tasha@primer.com',
+text: 'text od tashe',
+createdAt: 123
+});
+
+socket.on('createEmail',(newEmail)=>{
+    console.log('createEmail',newEmail);
+});
+
+socket.on('createMessage',(message)=>{
+    console.log('createMessage', message);
+});
+
 socket.on('disconnect', ()=>{
     console.log('client disconnected');
 });
