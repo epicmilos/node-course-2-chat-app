@@ -5,7 +5,7 @@ var generateMessage = (from,text) =>{
         from,
         text,
         createdAt: moment().valueOf()
-    }
+    };
 };
 
 var generateLocationMessage = (from, latitude, longitude)=>{
@@ -18,3 +18,4 @@ var generateLocationMessage = (from, latitude, longitude)=>{
 };
 
 module.exports={generateMessage, generateLocationMessage};
+
