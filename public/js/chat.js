@@ -1,20 +1,7 @@
 
 
 var socket = io();
-            socket.on('connect',function(){
-                console.log('connected to server');
-
-                // socket.emit('createEmail',{
-                //     to:'misha@primer.com',
-                //     text: 'email primer 1'
-                    
-                // });
-
-                // socket.emit('createMessage',{
-                //     from: 'ljusha@primer.com',
-                //     text: 'poslato'
-                // });
-            });
+            
 
             function scrollToBottom(){
                 //selectors
@@ -31,6 +18,32 @@ var socket = io();
                 }
             }
 
+            socket.on('connect',function(){
+                console.log('connected to server');
+
+                var params = jQuery.deparam(window.location.search);
+
+                socket.emit('join', params, function(error){
+                    if(error){
+                        alert(error);
+                        window.location.href='./';
+                    }else{
+                        console.log('no error');
+                    }
+                });
+
+                // socket.emit('createEmail',{
+                //     to:'misha@primer.com',
+                //     text: 'email primer 1'
+                    
+                // });
+
+                // socket.emit('createMessage',{
+                //     from: 'ljusha@primer.com',
+                //     text: 'poslato'
+                // });
+            });
+
 
             socket.on('disconnect', function(){
                 console.log('disconnected from server');
@@ -39,6 +52,16 @@ var socket = io();
             // socket.on('newEmail', function(email){
             //     console.log('new email', email);
             // });
+
+            socket.on('updateUserList',function(users){
+                var ol = jQuery('<ol></ol>');
+
+                users.forEach(function(user){
+                    ol.append(jQuery('<li></li>').text(user));
+                });
+
+                jQuery('#users').html(ol);
+            });
 
             socket.on('newMessage', function(message){
                 var formattedTime = moment(message.createdAt).format('h:mm a');
