@@ -26,7 +26,7 @@ var socket = io();
                 socket.emit('join', params, function(error){
                     if(error){
                         alert(error);
-                        window.location.href='./';
+                        window.location.href='/';
                     }else{
                         console.log('no error');
                     }
@@ -117,7 +117,6 @@ var socket = io();
                 var messageTextbox = jQuery('[name=message]');
 
                 socket.emit('createMessage',{
-                    from: 'User',
                     text: messageTextbox.val()
                 },function(){
                     messageTextbox.val('')
